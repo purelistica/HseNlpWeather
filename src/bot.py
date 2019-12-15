@@ -11,6 +11,7 @@ import logging
 import telegram
 from telegram.error import NetworkError, Unauthorized
 from time import sleep
+from src.weather import *
 
 update_id = None
 token = os.environ['TELEGRAM_TOKEN']
