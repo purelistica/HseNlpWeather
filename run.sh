@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-python3 -m venv ~/.venv/HseNlpWeather
-source ~/.venv/HseNlpWeather/bin/activate && pip3 install -r requirements.txt
+source ~/.venv/HseNlpWeather/bin/activate && python3 src/bot.py
