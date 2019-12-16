@@ -1,22 +1,18 @@
-from deeppavlov import configs, build_model
-
-ner_model = build_model(configs.ner.ner_rus_bert, download=True)
-
 import json
 import requests
 import pymorphy2
 import os
+from natasha import LocationExtractor
 
 
 def query_processor(query):
-    query_res = ner_model([query])
-    # print(query_res)
+    extractor = LocationExtractor()
+    match = extractor(query)
     city = None
-    for i in range(len(query_res[1][0])):
-        if 'LOC' in query_res[1][0][i]:
-            city = query_res[0][0][i]
-            break
-    return (city)
+    for i in range(len(match)):
+        city = match[i].fact.as_json['name']
+        break
+    return(city)
 
 
 def get_weather(city):
