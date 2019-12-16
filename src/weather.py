@@ -1,6 +1,5 @@
 import json
 import requests
-import pymorphy2
 import os
 from natasha import LocationExtractor
 
@@ -33,14 +32,13 @@ def get_weather(city):
 
         template = f"Температура {temp},\nощущается как {feels},\n{state}"
         return template
+    else:
+        return 'Что-то пошло не так'
 
-
-query = "погода в пскове"
 
 def weather_reply(query):
     city_detected = query_processor(query)
-    # print(city_detected)
-    morph = pymorphy2.MorphAnalyzer()
-    city_normal = morph.parse(city_detected)[0].normal_form
-    # print(city_normal)
-    return get_weather(city_normal) + '\n' + city_normal
+    if city_detected is None:
+        return 'Укажите город'
+    else:
+        return get_weather(city_detected) + '\n' + city_detected
